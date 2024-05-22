@@ -3,6 +3,7 @@ import Board from './Board';
 import GameOver from './GameOver';
 import GameState from './GameState';
 import Reset from './Reset';
+import Confetti from './Confetti';
 import gameOverSoundAsset from '../sounds/game-over.wav';
 import clickSoundAsset from '../sounds/click.wav';
 import { PLAYER_X, PLAYER_O } from './constants';
@@ -30,11 +31,11 @@ const TicTacToe = () => {
     if (gameState !== GameState.inProgress || tiles[index] !== null) {
       return;
     }
-    
+
     const newTiles = tiles.slice();
     newTiles[index] = playerTurn;
     setTiles(newTiles);
-    setPlayerTurn(prev => (prev === PLAYER_X ? PLAYER_O : PLAYER_X));
+    setPlayerTurn((prev) => (prev === PLAYER_X ? PLAYER_O : PLAYER_X));
   }, [gameState, tiles, playerTurn]);
 
   const handleReset = useCallback(() => {
@@ -49,7 +50,7 @@ const TicTacToe = () => {
   }, [tiles]);
 
   useEffect(() => {
-    if (tiles.some(tile => tile !== null)) {
+    if (tiles.some((tile) => tile !== null)) {
       clickSound.play();
     }
   }, [tiles, clickSound]);
@@ -63,11 +64,12 @@ const TicTacToe = () => {
   return (
     <div className='body'>
       <h1>Tic Tac Toe</h1>
-      <Board 
-        strikeClass={strikeClass} 
-        playerTurn={playerTurn} 
-        tiles={tiles} 
-        onTileClick={handleTileClick} 
+      {gameState !== GameState.inProgress && <Confetti />}
+      <Board
+        strikeClass={strikeClass}
+        playerTurn={playerTurn}
+        tiles={tiles}
+        onTileClick={handleTileClick}
       />
       <h3 className='player-turn'>{`Player's Turn: ${playerTurn}`}</h3>
       <GameOver gameState={gameState} />
