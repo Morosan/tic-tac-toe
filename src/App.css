@@ -2,9 +2,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   background-color: #23272f;
   color: white;
   height: 100vh;
+}
+
+.body {
+  height: 560px;
 }
 
 h1 {
@@ -17,8 +22,8 @@ h1 {
   display: grid;
   grid-template-columns: 100px 100px 100px;
   grid-template-rows: 100px 100px 100px;
-  cursor: pointer;
   position: relative;
+  user-select: none;
 }
 
 .tile {
@@ -28,6 +33,7 @@ h1 {
   justify-content: center;
   align-items: center;
   user-select: none;
+  cursor: pointer;
 }
 
 .right-border {
